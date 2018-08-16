@@ -4,7 +4,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="elevation-15">
               <v-toolbar dark>
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Sign form</v-toolbar-title>
 
                 <v-tooltip right>
                   <v-btn slot="activator" icon large href="https://codepen.io/johnjleider/pen/wyYVVj" target="_blank">
