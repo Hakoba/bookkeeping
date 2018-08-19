@@ -75,7 +75,7 @@ export default {
           dateOfCost: '10.03.2004',
           cost: 200,
           subject: 'Glue',
-          icon: 'home'
+          icon: 'donut_large'
 
         },
         {

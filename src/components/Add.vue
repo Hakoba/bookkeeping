@@ -2,7 +2,97 @@
   <v-container>
     <v-layout row>
       <v-flex xs12> 
-        <h2>Добавить</h2>
+        <h1>Add new</h1>
+        <v-form ref="form" v-model="valid" lazy-validation> 
+              <v-stepper v-model="e6"
+              vertical
+              :non-linear="nonLinear"
+              light
+              
+              >
+              <v-stepper-step editable :complete="e6 > 1" step="1" color="black">
+                Input your acquiring
+                <small>Or other expenses</small>
+              </v-stepper-step>
+
+              <v-stepper-content step="1">
+                <v-flex xs12 sm6 md3>
+                  <v-text-field
+                    
+                    :rules="[v => !!v || 'Must be required']"
+                    required
+                    type="text"
+                    color="grey"
+                    label="name"
+                    placeholder="Mango"
+                    prepend-icon="fiber_smart_record"
+                    
+                  ></v-text-field>
+                  <v-btn color="grey" @click="e6 = 2">Continue</v-btn>
+                </v-flex>
+
+                
+              </v-stepper-content>
+
+              <v-stepper-step dark editable :complete="e6 > 2" step="2" color="black">Price</v-stepper-step>
+
+              <v-stepper-content  step="2" >
+                <v-flex xs12 sm6 md3>
+                      <v-text-field
+                        type="text"
+                        :rules="priceRules"
+                        
+                        required
+                        color="grey"
+                        label="price in RUB"
+                        light
+                        placeholder="100000"
+                        prepend-icon="fiber_smart_record"
+                        
+                      ></v-text-field>
+                      <v-btn color="grey" @click="e6 = 3">Continue</v-btn>
+                    </v-flex>
+
+              </v-stepper-content>
+
+              <v-stepper-step :complete="e6 > 3" step="3" color="black">Date</v-stepper-step>
+
+              <v-stepper-content step="3" >
+              
+                <div>
+                  <v-date-picker 
+                  dark
+                  
+                  v-model="picker" 
+                  :landscape="landscape" 
+                 >
+                  </v-date-picker>
+               </div>
+                <v-btn color="grey" @click="e6 = 4">Continue</v-btn>
+                
+              </v-stepper-content>
+
+              <v-stepper-step step="4" color="black">Kind</v-stepper-step>
+              <v-stepper-content step="4">
+                <v-flex xs12 sm6 d-flex>
+                  <v-select
+                    color="black"
+                    :items="items"
+                    :rules="[v => !!v]"
+                    box
+                    required 
+                    label="Choose the type"
+                  ></v-select>
+                </v-flex>
+                <v-btn
+                 :disabled="!valid"
+                 class="white"
+                 
+                 @click="onSubmit">Submit</v-btn>
+                
+              </v-stepper-content>
+            </v-stepper>
+            </v-form>
       </v-flex>
     </v-layout>
   </v-container>
@@ -12,6 +102,20 @@
 export default {
   data () {
     return {
+      e6: 1,
+      valid: false,
+      items: ['Dues', 'Entertainment', 'Goods', 'Other'],
+      picker: null,
+      landscape: false,
+      nonLinear: true,
+      priceRules: 
+        [v => /^\d+$/.test(v) || 'You must use only numbers']
+      
+    }
+  },
+  methods: {
+    onSubmit () {
+      console.log( 'eeee boy')
     }
   }
 }
