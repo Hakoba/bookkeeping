@@ -28,7 +28,13 @@
      @click="drawer = !drawer"
      class="hidden-md-and-up">
      </v-toolbar-side-icon>
-    <v-toolbar-title :to="'/'" class="title">МиниБух</v-toolbar-title>
+    
+    <v-toolbar-title class="title">
+       <router-link :to="'/'" tag="span" ripple>
+         МиниБух
+       </router-link>
+    </v-toolbar-title>
+   
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn
