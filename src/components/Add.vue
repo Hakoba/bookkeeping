@@ -26,7 +26,7 @@
                     label="name"
                     placeholder="Mango"
                     prepend-icon="fiber_smart_record"
-                    
+                    v-model="acquiring"
                   ></v-text-field>
                   <v-btn color="grey" @click="e6 = 2">Continue</v-btn>
                 </v-flex>
@@ -41,7 +41,7 @@
                       <v-text-field
                         type="text"
                         :rules="priceRules"
-                        
+                        v-model="price"
                         required
                         color="grey"
                         label="price in RUB"
@@ -55,7 +55,7 @@
 
               </v-stepper-content>
 
-              <v-stepper-step :complete="e6 > 3" step="3" color="black">Date</v-stepper-step>
+              <v-stepper-step editable :complete="e6 > 3" step="3" color="black">Date</v-stepper-step>
 
               <v-stepper-content step="3" >
               
@@ -72,7 +72,7 @@
                 
               </v-stepper-content>
 
-              <v-stepper-step step="4" color="black">Kind</v-stepper-step>
+              <v-stepper-step editable step="4" color="black">Kind</v-stepper-step>
               <v-stepper-content step="4">
                 <v-flex xs12 sm6 d-flex>
                   <v-select
@@ -81,6 +81,7 @@
                     :rules="[v => !!v]"
                     box
                     required 
+                    v-model="selectItem"
                     label="Choose the type"
                   ></v-select>
                 </v-flex>
@@ -108,14 +109,30 @@ export default {
       picker: null,
       landscape: false,
       nonLinear: true,
+
+      acquiring: '',
+      price: '',
+      picker: null,
+      selectItem: null,
+      
+
       priceRules: 
-        [v => /^\d+$/.test(v) || 'You must use only numbers']
+        [v => /^\d+$/.test(v) || 'You must use only numbers'],
       
     }
   },
   methods: {
     onSubmit () {
-      console.log( 'eeee boy')
+      if (this.$refs.form.validate()) {
+        const newSpend = {
+          acquiring: this.acquiring,
+          price: this.price,
+          picker: this.picker,
+          selectItem: this.selectItem
+        }
+        console.log( 'eeee boy', newSpend)
+      }
+      
     }
   }
 }

@@ -11,14 +11,27 @@
       fixed-tabs
       slider-color="yellow"
     >
-      <v-tab
-        
-        v-for="period in periods"
-        :key="period.id"
-        ripple
-      >
-        {{period}}
-
+      <v-tab @click="toDay">
+      <span >
+        {{periods[0]}}
+      </span>
+      </v-tab>
+    <v-tab @click="toWeek">
+       <span >
+        {{periods[1]}}
+      
+      </span>
+      </v-tab>
+      <v-tab @click="toMonth">
+       <span >
+        {{periods[2]}}
+      </span>
+      </v-tab>
+      <v-tab @click="toYear">
+      
+       <span >
+        {{periods[3]}}
+      </span>
       </v-tab>
       <v-tab-item
         v-for="n in 4"
@@ -35,7 +48,7 @@
             <td class="text-xs-center">{{ props.item.cost }} RUB</td>
             <td class="text-xs-center">{{ props.item.dateOfCost }}</td>
             <td class="text-xs-center"><v-icon>{{props.item.icon}}</v-icon></td>
-            <td class="text-xs-center"><v-btn color="grey" dark>Delete</v-btn></td>
+            <td class="text-xs-center"><v-btn color="grey" dark @click="onDelete">Delete</v-btn></td>
 
           </template>
           <template slot="no-data" v-show="">
@@ -47,9 +60,7 @@
       </v-tab-item>
     </v-tabs>
 
-    <div class="text-xs-center mt-3">
-      <v-btn @click="next">next tab</v-btn>
-    </div>
+    
         </v-card>
       </v-flex>
     </v-layout>
@@ -62,6 +73,7 @@ export default {
   data () {
     return {
       active: null,
+      today: new Date().toISOString().slice(0,10) ,
       periods: ['Day', 'Week', 'Month', 'All time'],
       headers: [
           { text: 'Subject', value: 'subject', align: 'center'},
@@ -69,42 +81,55 @@ export default {
           { text: 'Date', value: 'date', align: 'center', sortable: false},
           { text: 'Kind', value: 'kind', align: 'center', sortable: false},
           { text: 'Actions', value: 'actions', align: 'center', sortable: false}
-        ],
-      costs: [
-        {
-          dateOfCost: '10.03.2004',
-          cost: 200,
-          subject: 'Glue',
-          icon: 'donut_large'
-
-        },
-        {
-          dateOfCost: '02.04.2017',
-          cost: 4450,
-          subject: 'Vegetables',
-          icon: 'shopping_cart'
-        },
-        {
-          dateOfCost: '24.11.2010',
-          cost: 100500,
-          subject: 'Anime',
-          icon: 'shopping_basket'
-        },
-        {
-          dateOfCost: '20.03.2013',
-          cost: 100,
-          subject: 'Taxes',
-          icon: 'account_balance'
-        }
-        
-      ]
+        ]
        }
     },
+  computed: {
+   costs () {
+     return this.$store.getters.costs
+   }  
+  },
   methods: {
-      next () {
-        const active = parseInt(this.active)
-        this.active = (active < 3 ? active + 1 : 0)
+    onDelete(){
+      
+    },
+      
+      
+      toDay (){
+        for( let item in this.costs){
+          if(this.costs[item].dateOfCost != this.today){
+            this.costs.splice(item,1, 'kek')
+          }
+        }
+       this.$store.commit('costsFilter')
+        
+      }, 
+
+      parseToInt (str){
+        return parseInt(str.split("-").join(""), 10)
+      },
+      toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
+        let today = this.parseToInt(this.today)
+           for( let item in this.costs){
+          let date = this.parseToInt(this.costs[item].dateOfCost)
+          if(today - date >= num){
+            this.costs.splice(item,1, 'kek')
+          }
+        }
+        this.$store.commit('costsFilter') //надо в мутэйшенсе прописывать, кек
+      },
+      toWeek () {
+        this.toPeriod(7)
+      },
+      toMonth () {
+        this.toPeriod(30)
+      },
+      toYear () {
+        this.toPeriod(365)
       }
+      
+
+
   }
 }
 </script>

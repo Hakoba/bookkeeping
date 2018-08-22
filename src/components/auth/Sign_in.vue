@@ -4,7 +4,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="elevation-15">
               <v-toolbar dark>
-                <v-toolbar-title>Sign in form</v-toolbar-title>s
+                <v-toolbar-title>Sign in form</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form ref="form" v-model="valid" lazy-validation>
@@ -57,7 +57,7 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log(user);
+        console.log(useruser);
       }
     }
   }

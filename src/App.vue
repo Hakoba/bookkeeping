@@ -66,7 +66,7 @@ export default {
       links: [
         {title: 'Sign in', icon: 'lock', url: '/sign_in'},
         {title: 'Sign up', icon: 'face', url: '/sign_up'},
-        {title: 'Home', icon: 'home', url: '/'},
+        {title: 'Home', icon: 'home', url: '/home'},
         {title: 'Add new', icon: 'vertical_align_top', url: '/add_new'},
         {title: 'Log out', icon: 'exit_to_app', url: '/'}
       ]
