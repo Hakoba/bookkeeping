@@ -1,4 +1,4 @@
-export  default {
+export default {
   state: {
     costs: [
       {
@@ -34,12 +34,11 @@ export  default {
     ]
   },
   mutations: {
-    costsFilter (state) {
+    costsFilter (state) { 
       state.costs = state.costs.filter( item => item != 'kek' )
     }
   },
   actions: {
-
   },
   getters: {
    

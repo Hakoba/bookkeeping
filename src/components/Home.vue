@@ -105,7 +105,7 @@ export default {
         
       }, 
 
-      parseToInt (str){
+      parseToInt (str){ 
         return parseInt(str.split("-").join(""), 10)
       },
       toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
