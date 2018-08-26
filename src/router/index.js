@@ -4,7 +4,7 @@ import Home from '@/components/Home'
 import SignIn from '@/components/auth/Sign_in'
 import SignUp from '@/components/auth/Sign_up'
 import Add from '@/components/Add'
-
+import LinkGuard from './links-guard'
 Vue.use(Router)
 
 export default new Router({
@@ -12,7 +12,8 @@ export default new Router({
     {
       path: '/home',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: LinkGuard
     },
     {
       path: '/sign_in',
@@ -20,9 +21,10 @@ export default new Router({
       component: SignIn
     },
     {
-      path: '/add_new',
+      path: '/add_new:id',
       name: 'add_new',
-      component: Add
+      component: Add,
+      beforeEnter: LinkGuard
     },
     {
       path: '/sign_up',

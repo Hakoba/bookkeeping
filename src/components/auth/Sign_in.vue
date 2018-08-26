@@ -22,9 +22,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                 :disabled="!valid"
+                 :disabled="!valid || loading"
                  class="white"
-
+                 :loading="loading"
                  @click="onSubmit">Submit</v-btn>
               </v-card-actions>
             </v-card>
@@ -57,9 +57,23 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log(useruser);
+        this.$store.dispatch('loginUser', user)
+           .then(()=> this.$router.push('/home'))
+          .catch(err => {})
+        
       }
     }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
+    }
+  },
+  created () {
+    if(this.$route.query['loginError']){
+      this.$store.dispatch('setError', 'You may log in to access this page  ')
+    }
+
   }
 }
 </script>

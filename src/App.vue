@@ -21,6 +21,20 @@
 
 
           </v-list-tile>
+          <v-list-tile
+          @click="logOut"
+          v-if="isUserLoggedIn"
+          >
+            <v-list-tile-action>
+              <v-icon>exit_to_app</v-icon>
+            </v-list-tile-action>
+
+            <v-list-tile-content>
+              <v-list-tile-title>LogOut</v-list-tile-title>
+            </v-list-tile-content>
+
+
+          </v-list-tile>
         </v-list>
   </v-navigation-drawer>
   <v-toolbar app dark >
@@ -48,14 +62,47 @@
       </v-icon>
       {{link.title}}
       </v-btn>
-
+      <v-btn
+      @click="logOut"
+      flat
+       v-if="isUserLoggedIn"
+      >
+      <v-icon left> 
+        exit_to_app
+      </v-icon>
+      Log out
+      </v-btn>
     </v-toolbar-items>
   </v-toolbar>
   <v-content>
   <router-view></router-view>
   </v-content>
-
+  <template v-if="error">
+   <v-snackbar
+      
+      color="red"
+      :bottom="true"
+      @click="closeError"
+      :multi-line="true"
+      :timeout="5000"
+      :value="true"
+      
+    >
+      {{error}}
+      <v-btn
+        
+        
+        ripple
+        color="error"
+        
+        @click="closeError"
+      >
+       Close
+      </v-btn>
+    </v-snackbar>
+    </template>
 </v-app>
+
 </template>
 
 <script>
@@ -63,17 +110,43 @@ export default {
   data () {
     return {
       drawer: false,
-      links: [
-        {title: 'Sign in', icon: 'lock', url: '/sign_in'},
-        {title: 'Sign up', icon: 'face', url: '/sign_up'},
-        {title: 'Home', icon: 'home', url: '/home'},
-        {title: 'Add new', icon: 'vertical_align_top', url: '/add_new'},
-        {title: 'Log out', icon: 'exit_to_app', url: '/'}
-      ]
+     
     }
   },
   methods: {
-
+    closeError(){
+        this.$store.dispatch('clearError', this)
+    },
+    logOut (){
+       this.$store.dispatch('logoutUser')
+       this.$router.push('/')
+    }
+    
+  },
+  computed: {
+    error () {
+      return this.$store.getters.error
+    },
+    isUserLoggedIn () {
+      return this.$store.getters.isUserLoggedIn
+      
+    },
+    links () {
+        
+      if( this.isUserLoggedIn){
+        return [
+        {title: 'Home', icon: 'home', url: '/home', methods: false},
+        {title: 'Add new', icon: 'vertical_align_top', url: '/add_new', methods: ''},
+        
+        ]
+      }
+      
+      return [
+        {title: 'Sign in', icon: 'lock', url: '/sign_in', methods: false},
+        {title: 'Sign up', icon: 'face', url: '/sign_up', methods: ''},
+        
+      ]
+    }
   }
 }
 </script>

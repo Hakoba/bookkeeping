@@ -28,9 +28,9 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                 :disabled="!valid"
+                 :disabled="!valid || loading"
                  class="white"
-
+                 :loading="loading"
                  @click="onSubmit">Create Acc</v-btn>
               </v-card-actions>
             </v-card>
@@ -70,8 +70,15 @@ export default {
           password: this.password
         }
         this.$store.dispatch('registerUser', user)
-        console.log(user);
+          .then(()=> this.$router.push('/home'))
+          .catch(err => {})
+        
       }
+    }
+  },
+  computed: {
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }
