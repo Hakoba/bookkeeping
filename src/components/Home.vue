@@ -91,16 +91,18 @@ export default {
   },
   methods: {
     onDelete(){
-      
+       console.log(this.costs)
     },
       
       
-      toDay (){
+     async toDay (){
+        await this.$store.dispatch('fetchCosts')
         for( let item in this.costs){
           if(this.costs[item].dateOfCost != this.today){
             this.costs.splice(item,1, 'kek')
           }
         }
+        
        this.$store.commit('costsFilter')
         
       }, 
@@ -108,8 +110,9 @@ export default {
       parseToInt (str){ 
         return parseInt(str.split("-").join(""), 10)
       },
-      toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
+      async toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
         let today = this.parseToInt(this.today)
+         await this.$store.dispatch('fetchCosts')
            for( let item in this.costs){
           let date = this.parseToInt(this.costs[item].dateOfCost)
           if(today - date >= num){
@@ -127,9 +130,10 @@ export default {
       toYear () {
         this.toPeriod(365)
       }
-      
+  },
+  beforeCreate () {
 
-
+    this.$store.dispatch('fetchCosts')
   }
 }
 </script>

@@ -10,7 +10,7 @@ if (store.getters.user == null){
     next('/sign_in?loginError=true')
   }
   
-  }, 1500);
+  }, 2000);
 }else {
   next()
 }

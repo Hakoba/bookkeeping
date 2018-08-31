@@ -86,7 +86,8 @@
                   ></v-select>
                 </v-flex>
                 <v-btn
-                 :disabled="!valid"
+                 :disabled="!valid || loading"
+                 :loading="loading"
                  class="white"
                  
                  @click="onSubmit">Submit</v-btn>
@@ -121,18 +122,38 @@ export default {
       
     }
   },
-  methods: {
-    onSubmit () {
+  methods: { 
+    iconTransfer (icon){
+      if( icon == 'Dues'){
+        icon = 'shopping_cart'
+      } else if( icon == 'Entertaiment'){
+          icon = 'account_balance'
+      }else if( icon == 'Goods'){
+          icon = 'shopping_basket'
+      }else {
+          icon = 'donut_large'
+      }
+      return icon
+    },
+    onSubmit () {    
       if (this.$refs.form.validate()) {
         const newSpend = {
-          acquiring: this.acquiring,
-          price: this.price,
-          picker: this.picker,
-          selectItem: this.selectItem
+          subject: this.acquiring,
+          cost: this.price,
+          dateOfCost: this.picker,
+          icon: this.iconTransfer(this.selectItem)
         }
         console.log( 'eeee boy', newSpend)
-      }
+        this.$store.dispatch('createNewSpend', newSpend)
+          .then(() => this.$router.push('/home'))
+          .catch(()=> {} )
+      } 
       
+    }
+  },
+  computed: {
+      loading () {
+      //return this.$store.getters.loading
     }
   }
 }
