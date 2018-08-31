@@ -9,22 +9,12 @@ class User {
 }
 export default {
   state: {
-    user: null
-  },
-  getters:{
-    user(state){
-      return state.user
-    },
-    isUserLoggedIn (state) {
-      return state.user !== null
-    }
-  },
-  mutations:{
-    setUser(state, payload){
-      state.user = payload
-    }
+    user: null 
   },
   actions: {
+    autoLoginUser ({commit}, payload) {
+      commit('setUser', new User(payload.uid))
+    },
     async registerUser ({commit}, {email, password}){
       commit('clearError');
       commit('setLoading', true);
@@ -53,12 +43,23 @@ export default {
           throw err
       }
     },
-    autoLoginUser ({commit}, payload) {
-      commit('setUser', new User(payload.uid))
-    },
     logoutUser({commit}){
       fb.auth().signOut()
       commit('setUser', null)
     }
+  },
+  getters:{
+    user(state){
+      return state.user
+    },
+    isUserLoggedIn (state) {
+      return state.user !== null
+    }
+  },
+  mutations:{
+    setUser(state, payload){
+      state.user = payload
+    }
   }
+ 
 }

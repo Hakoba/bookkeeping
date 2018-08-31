@@ -28,6 +28,7 @@ new Vue({
     firebase.initializeApp(config);
 
     firebase.auth().onAuthStateChanged(user => {
+      console.log(user)
       if( user !== null){
         this.$store.dispatch('autoLoginUser', user)
       }

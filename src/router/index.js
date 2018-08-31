@@ -21,7 +21,7 @@ export default new Router({
       component: SignIn
     },
     {
-      path: '/add_new:id',
+      path: '/add_new',
       name: 'add_new',
       component: Add,
       beforeEnter: LinkGuard

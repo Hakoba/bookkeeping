@@ -107,53 +107,52 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      drawer: false,
-     
-    }
+      drawer: false
+    };
   },
   methods: {
-    closeError(){
-        this.$store.dispatch('clearError', this)
+    closeError() {
+      this.$store.dispatch("clearError", this);
     },
-    logOut (){
-       this.$store.dispatch('logoutUser')
-       this.$router.push('/')
+    logOut() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/");
     }
-    
   },
   computed: {
-    error () {
-      return this.$store.getters.error
+    error() {
+      return this.$store.getters.error;
     },
-    isUserLoggedIn () {
-      return this.$store.getters.isUserLoggedIn
-      
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
     },
-    links () {
-        
-      if( this.isUserLoggedIn){
+    links() {
+      if (this.isUserLoggedIn) {
         return [
-        {title: 'Home', icon: 'home', url: '/home', methods: false},
-        {title: 'Add new', icon: 'vertical_align_top', url: '/add_new', methods: ''},
-        
-        ]
+          { title: "Home", icon: "home", url: "/home", methods: false },
+          {
+            title: "Add new",
+            icon: "vertical_align_top",
+            url: "/add_new",
+            methods: ""
+          }
+        ];
       }
-      
+
       return [
-        {title: 'Sign in', icon: 'lock', url: '/sign_in', methods: false},
-        {title: 'Sign up', icon: 'face', url: '/sign_up', methods: ''},
-        
-      ]
+        { title: "Sign in", icon: "lock", url: "/sign_in", methods: false },
+        { title: "Sign up", icon: "face", url: "/sign_up", methods: "" }
+      ];
     }
   }
-}
+};
 </script>
 
 <style>
 .title:hover {
-  color:#999;
+  color: #999;
   transition: color 0.3s;
   cursor: pointer;
 }
