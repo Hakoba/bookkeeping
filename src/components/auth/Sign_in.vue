@@ -57,10 +57,11 @@ export default {
           email: this.email,
           password: this.password
         }
+        console.log('asdasdasdasda')
         this.$store.dispatch('loginUser', user)
-           .then(()=> this.$router.push('/home'))
+           .then(this.$router.push('/home'))
           .catch(err => {})
-        
+        console.log('asd22222')
       }
     }
   },

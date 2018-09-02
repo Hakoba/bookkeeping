@@ -36,12 +36,19 @@ export default {
         const user = await fb.auth().signInWithEmailAndPassword(email, password)
         commit('setUser', new User(user.uid));
         commit('setLoading', false);
+        
       }
+      
       catch (err){
           commit('setLoading', false);
           commit('setError', err.message);
           throw err
       }
+   
+      
+      
+      
+     
     },
     logoutUser({commit}){
       fb.auth().signOut()

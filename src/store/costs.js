@@ -1,4 +1,5 @@
 import * as fb from 'firebase'
+import './auth'
 class Costs { 
   constructor(dateOfCost , cost, subject, icon, ownerID, id){
 this.dateOfCost = dateOfCost
@@ -6,6 +7,7 @@ this.cost = cost
 this.subject = subject
 this.icon = icon
 this.ownerID = ownerID
+
   }
 }
 export default {
@@ -22,7 +24,9 @@ export default {
     },
     loadCosts (state, payload){
       state.costs =payload
-     
+    },
+    updateCosts(state, payload){
+    //  state.costs.find
     }
   },
   actions: {
@@ -45,7 +49,7 @@ export default {
       }
       //commit('createNewSpend', payload)
     },
-  async fetchCosts ({commit}){
+  async fetchCosts ({commit, getters}){
     commit('clearError')
     commit('setLoading', true)
     const resultCosts = []
@@ -54,11 +58,29 @@ export default {
      const costs =  fbVal.val()
      Object.keys(costs).forEach(key => {
        const cost = costs[key]
+       if(cost.ownerID == getters.user.id){
        resultCosts.push(
          new Costs(cost.dateOfCost, cost.cost, cost.subject, cost.icon, cost.ownerID, key)
-       )
+       )}
+       //console.log(key)
      })
      commit('loadCosts', resultCosts)
+     console.log(costs)
+    } catch (error){
+      commit('setError', error.message)
+      commit('setLoading', false)
+      throw error
+    }
+  },
+  async deleteCoct ({commit}, {id}){
+    commit('clearError')
+    commit('setLoading', true)
+    
+    try{
+     const fbVal= await  fb.database().ref('costs').child(id).remove()
+      console.log(fbVal)
+  
+    // commit('updateCosts', fbVal)
      //console.log(costs)
     } catch (error){
       commit('setError', error.message)
@@ -66,6 +88,7 @@ export default {
       throw error
     }
   }
+ 
   },
   getters: {
    

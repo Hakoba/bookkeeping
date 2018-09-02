@@ -143,7 +143,7 @@ export default {
           dateOfCost: this.picker,
           icon: this.iconTransfer(this.selectItem)
         }
-        console.log( 'eeee boy', newSpend)
+        //console.log( 'eeee boy', newSpend)
         this.$store.dispatch('createNewSpend', newSpend)
           .then(() => this.$router.push('/home'))
           .catch(()=> {} )

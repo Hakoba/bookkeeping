@@ -42,13 +42,14 @@
           class="elevation-1"
           :items="costs"
           :headers="headers"
+          
         >
           <template slot="items" slot-scope="props">
             <td class="text-xs-center">{{ props.item.subject }}</td>
             <td class="text-xs-center">{{ props.item.cost }} RUB</td>
             <td class="text-xs-center">{{ props.item.dateOfCost }}</td>
             <td class="text-xs-center"><v-icon>{{props.item.icon}}</v-icon></td>
-            <td class="text-xs-center"><v-btn color="grey" dark @click="onDelete">Delete</v-btn></td>
+            <!-- <td class="text-xs-center"><v-btn color="grey" dark @click="onDelete">Delete</v-btn></td> -->
 
           </template>
           <template slot="no-data" v-show="">
@@ -80,7 +81,7 @@ export default {
           { text: 'Cost', value: 'cost', align: 'center'},
           { text: 'Date', value: 'date', align: 'center', sortable: false},
           { text: 'Kind', value: 'kind', align: 'center', sortable: false},
-          { text: 'Actions', value: 'actions', align: 'center', sortable: false}
+          // { text: 'Actions', value: 'actions', align: 'center', sortable: false}
         ]
        }
     },
@@ -91,12 +92,14 @@ export default {
   },
   methods: {
     onDelete(){
-       console.log(this.costs)
+        console.log(this.costs.subject)
+       //this.$store.dispatch('deleteCost', )
     },
       
       
      async toDay (){
         await this.$store.dispatch('fetchCosts')
+  this.$store.dispatch('setLoading', false)
         for( let item in this.costs){
           if(this.costs[item].dateOfCost != this.today){
             this.costs.splice(item,1, 'kek')
@@ -113,6 +116,7 @@ export default {
       async toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
         let today = this.parseToInt(this.today)
          await this.$store.dispatch('fetchCosts')
+           this.$store.dispatch('setLoading', false)
            for( let item in this.costs){
           let date = this.parseToInt(this.costs[item].dateOfCost)
           if(today - date >= num){
@@ -134,6 +138,10 @@ export default {
   beforeCreate () {
 
     this.$store.dispatch('fetchCosts')
+    //
+  },
+  destroyed (){
+    this.$store.dispatch('setLoading', false)
   }
 }
 </script>
