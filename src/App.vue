@@ -21,6 +21,7 @@
 
 
           </v-list-tile>
+          
           <v-list-tile
           @click="logOut"
           v-if="isUserLoggedIn"
@@ -131,19 +132,21 @@ export default {
     links() {
       if (this.isUserLoggedIn) {
         return [
-          { title: "Home", icon: "home", url: "/home", methods: false },
+          { title: "Home", icon: "home", url: "/", methods: false },
           {
             title: "Add new",
             icon: "vertical_align_top",
             url: "/add_new",
             methods: ""
-          }
+          },
+           // {title: "About", icon: "bubble_chart", url: "/FAQ", methods: "" }
         ];
       }
 
       return [
         { title: "Sign in", icon: "lock", url: "/sign_in", methods: false },
-        { title: "Sign up", icon: "face", url: "/sign_up", methods: "" }
+        { title: "Sign up", icon: "face", url: "/sign_up", methods: "" },
+        //{title: "About", icon: "bubble_chart", url: "/FAQ", methods: ""}
       ];
     }
   }

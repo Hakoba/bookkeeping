@@ -116,6 +116,7 @@ export default {
       async toPeriod(num){      // где num это колличество дней показывающих в каком промежутке искать (7 неделя, 30 месяц и тд)
         let today = this.parseToInt(this.today)
          await this.$store.dispatch('fetchCosts')
+         console.log(today)
            this.$store.dispatch('setLoading', false)
            for( let item in this.costs){
           let date = this.parseToInt(this.costs[item].dateOfCost)

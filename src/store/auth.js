@@ -20,8 +20,12 @@ export default {
       commit('setLoading', true);
       try { 
         const user = await fb.auth().createUserWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.uid));
+       
+        commit('setUser', new User(user.uid))
+      
+       
         commit('setLoading', false);
+        
       }
       catch (err){
           commit('setLoading', false);
@@ -29,26 +33,22 @@ export default {
           throw err
       }
     },
-    async loginUser ({commit}, {email,password}){
+    async loginUser ({commit, getters}, {email,password}){
       commit('clearError');
       commit('setLoading', true);
       try { 
-        const user = await fb.auth().signInWithEmailAndPassword(email, password)
-        commit('setUser', new User(user.uid));
-        commit('setLoading', false);
-        
-      }
-      
+         await fb.auth().signInWithEmailAndPassword(email, password)
+         .then((obj) => {
+           commit('setUser', new User( obj.user.uid))
+           getters.state.user.id = obj.user.uid;
+          })
+         (commit('setLoading', false))    
+      } 
       catch (err){
           commit('setLoading', false);
           commit('setError', err.message);
           throw err
       }
-   
-      
-      
-      
-     
     },
     logoutUser({commit}){
       fb.auth().signOut()
@@ -68,5 +68,4 @@ export default {
       state.user = payload
     }
   }
- 
 }

@@ -50,6 +50,7 @@ export default {
       //commit('createNewSpend', payload)
     },
   async fetchCosts ({commit, getters}){
+    console.log(getters.user)
     commit('clearError')
     commit('setLoading', true)
     const resultCosts = []
@@ -59,6 +60,7 @@ export default {
      Object.keys(costs).forEach(key => {
        const cost = costs[key]
        if(cost.ownerID == getters.user.id){
+         
        resultCosts.push(
          new Costs(cost.dateOfCost, cost.cost, cost.subject, cost.icon, cost.ownerID, key)
        )}

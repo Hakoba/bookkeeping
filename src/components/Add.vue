@@ -145,7 +145,7 @@ export default {
         }
         //console.log( 'eeee boy', newSpend)
         this.$store.dispatch('createNewSpend', newSpend)
-          .then(() => this.$router.push('/home'))
+          .then(() => this.$router.push('/'))
           .catch(()=> {} )
       } 
       
