@@ -1,15 +1,22 @@
 import Vue from 'vue'
-import './plugins/vuetify'
-import App from './App.vue'
+import App from './App'
 import router from './router'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import store from './store'
-import './registerServiceWorker'
 import * as firebase from 'firebase'
+import './registerServiceWorker'
+Vue.use(Vuetify)
+
 Vue.config.productionTip = false
 
+/* eslint-disable no-new */
 new Vue({
+  el: '#app',
   router,
   store,
+  components: { App },
+  template: '<App/>',
   created () {
     var config = {
       apiKey: 'AIzaSyDADAyNyEEb7CAsKE-omjc35j0KGXBKxJs',
@@ -28,6 +35,5 @@ new Vue({
       }
     })
     //this.$store.dispatch('fetchCosts')
-  },
-  render: h => h(App)
-}).$mount('#app')
+  }
+})
