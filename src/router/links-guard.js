@@ -1,19 +1,10 @@
 import store from '../store'
-export default function(to,from,next) {
-
-if (store.getters.user == null){
-  setTimeout(() => {
-    if (store.getters.user){
-      next()
-    }
-  else{
+export default function (to, from, next) {
+  let ls = localStorage.getItem('is loginned')
+  console.log(ls, "ls")
+  if (store.getters.user !== null || ls == 'true') {
+    next()
+  } else {
     next('/sign_in?loginError=true')
   }
-  
-  }, 2000);
-}else {
-  next()
-}
-
- 
 }

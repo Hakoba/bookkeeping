@@ -54,7 +54,7 @@
           </template>
           <template slot="no-data" v-show="">
             <v-alert :value="true" color="error" icon="warning">
-              You need to add ur costs! 
+              Вы должны добавть хотя бы одну вашу покупку! 
             </v-alert>
           </template>
   </v-data-table>
@@ -63,24 +63,31 @@
 
     
         </v-card>
+
       </v-flex>
     </v-layout>
+    <chart/>
   </v-container>
 </div>
 </template>
 
 <script>
+import Chart from './Charts.vue'
 export default {
+  components: {
+      Chart,
+  },
+
   data () {
     return {
       active: null,
       today: new Date().toISOString().slice(0,10) ,
-      periods: ['Day', 'Week', 'Month', 'All time'],
+      periods: ['День', 'Неделя', 'Месяц', 'Все время'],
       headers: [
-          { text: 'Subject', value: 'subject', align: 'center'},
-          { text: 'Cost', value: 'cost', align: 'center'},
-          { text: 'Date', value: 'date', align: 'center', sortable: false},
-          { text: 'Kind', value: 'kind', align: 'center', sortable: false},
+          { text: 'Предмет', value: 'subject', align: 'center'},
+          { text: 'Стоимость', value: 'cost', align: 'center'},
+          { text: 'Дата', value: 'date', align: 'center', sortable: false},
+          { text: 'Вид', value: 'kind', align: 'center', sortable: false},
           // { text: 'Actions', value: 'actions', align: 'center', sortable: false}
         ]
        }

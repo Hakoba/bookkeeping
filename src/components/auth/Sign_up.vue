@@ -4,7 +4,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="elevation-15">
               <v-toolbar dark>
-                <v-toolbar-title>Sign up form</v-toolbar-title>
+                <v-toolbar-title>Регистрация</v-toolbar-title>
 
         
               </v-toolbar>
@@ -12,16 +12,16 @@
                 <v-form ref="form" v-model="valid" lazy-validation>
                   <v-text-field
                    v-model="email" color="grey" prepend-icon="person"
-                   name="email" label="Email" type="email"
+                   name="Еmail" label="Email" type="email"
                    :rules="emailRules"
                   ></v-text-field>
                   <v-text-field 
                   v-model="password" color="grey" prepend-icon="lock" name="password" 
-                  label="Password" type="password" :rules="passwordRules"
+                  label="Пароль" type="password" :rules="passwordRules"
                   ></v-text-field>
                   <v-text-field 
                   v-model="confirmPassword" color="grey" prepend-icon="lock" name="confirmPassword" 
-                  label="Confirm Password" type="password" :rules="confirmPasswordRules"
+                  label="Подтверждение пароля" type="password" :rules="confirmPasswordRules"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -31,7 +31,7 @@
                  :disabled="!valid || loading"
                  class="white"
                  :loading="loading"
-                 @click="onSubmit">Create Acc</v-btn>
+                 @click="onSubmit">Создать профиль</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -48,17 +48,17 @@ export default {
       confirmPassword: '',
       valid: false,
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
+         v => !!v || 'E-mail Не должен быть пустым',
+        v => /.+@.+/.test(v) || 'E-mail должен быть валидным'
       ],
       passwordRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length >= 3) || 'Password must be more than 3 characters'
+        v => !!v || 'Пароль не должен быть пустым',
+        v => (v && v.length >= 3) || 'Пароль должен содержать больше 3 символов'
       ],
       confirmPasswordRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length >= 3) || 'Password must be more than 3 characters',
-        v => v == this.password || 'passwords must be the same'
+        v => !!v || 'Пароль не должен быть пустым',
+        v => (v && v.length >= 3) || 'Пароль должен содержать больше 3 символов',
+        v => v == this.password || 'Пароли должны быть одинаковыми'
       ]
     }
   },
@@ -71,6 +71,7 @@ export default {
         }
         this.$store.dispatch('registerUser', user)
           .then( this.$router.push('/'))
+          .then(localStorage.setItem('is loginned', true))
           .catch(err => {})
         
       }

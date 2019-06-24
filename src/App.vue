@@ -5,7 +5,9 @@
    app
    temporary
    v-model="drawer">
+
      <v-list >
+     
           <v-list-tile
             v-for="link of links"
             :key="link.title"
@@ -31,7 +33,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>LogOut</v-list-tile-title>
+              <v-list-tile-title>Выйти</v-list-tile-title>
             </v-list-tile-content>
 
 
@@ -46,7 +48,7 @@
     
     <v-toolbar-title class="title">
        <router-link :to="'/'" tag="span" ripple>
-         МиниБух
+         Бухгалтерия
        </router-link>
     </v-toolbar-title>
    
@@ -71,7 +73,7 @@
       <v-icon left> 
         exit_to_app
       </v-icon>
-      Log out
+      Выйти
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -119,6 +121,7 @@ export default {
     },
     logOut() {
       this.$store.dispatch("logoutUser");
+     
       this.$router.push("/");
     }
   },
@@ -132,9 +135,9 @@ export default {
     links() {
       if (this.isUserLoggedIn) {
         return [
-          { title: "Home", icon: "home", url: "/", methods: false },
+          { title: "На главную", icon: "home", url: "/", methods: false },
           {
-            title: "Add new",
+            title: "Добавить",
             icon: "vertical_align_top",
             url: "/add_new",
             methods: ""
@@ -144,8 +147,8 @@ export default {
       }
 
       return [
-        { title: "Sign in", icon: "lock", url: "/sign_in", methods: false },
-        { title: "Sign up", icon: "face", url: "/sign_up", methods: "" },
+        { title: "Войти", icon: "lock", url: "/sign_in", methods: false },
+        { title: "Зарегистрироваться", icon: "face", url: "/sign_up", methods: "" },
         //{title: "About", icon: "bubble_chart", url: "/FAQ", methods: ""}
       ];
     }

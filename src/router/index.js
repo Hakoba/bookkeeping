@@ -5,6 +5,7 @@ import SignIn from '@/components/auth/Sign_in'
 import SignUp from '@/components/auth/Sign_up'
 import Add from '@/components/Add'
 import Faq from '@/components/Faq'
+import Chart from '@/components/Charts'
 import LinkGuard from './links-guard'
 
 Vue.use(Router)
@@ -15,6 +16,11 @@ export default new Router({
       path: '/welcomePage',
       name: 'about',
       component: Faq
+    },
+    {
+      path: '/chart',
+      name: 'chart',
+      component: Chart
     },
     {
       path: '/',

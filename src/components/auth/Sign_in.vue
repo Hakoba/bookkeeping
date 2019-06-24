@@ -4,7 +4,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="elevation-15">
               <v-toolbar dark>
-                <v-toolbar-title>Sign in form</v-toolbar-title>
+                <v-toolbar-title>Авторизация</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
                 <v-form ref="form" v-model="valid" lazy-validation>
@@ -25,7 +25,7 @@
                  :disabled="!valid || loading"
                  class="white"
                  :loading="loading"
-                 @click="onSubmit">Submit</v-btn>
+                 @click="onSubmit">Войти</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -41,12 +41,12 @@ export default {
       password: '',
       valid: false,
       emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid'
+        v => !!v || 'E-mail Не должен быть пустым',
+        v => /.+@.+/.test(v) || 'E-mail должен быть валидным'
       ],
       passwordRules: [
-        v => !!v || 'Password is required',
-        v => (v && v.length >= 3) || 'Password must be more than 3 characters'
+        v => !!v || 'Пароль не должен быть пустым',
+        v => (v && v.length >= 3) || 'Пароль должен содержать больше 3 символов'
       ]
     }
   },
@@ -60,6 +60,7 @@ export default {
         console.log('asdasdasdasda')
         this.$store.dispatch('loginUser', user)
            .then(this.$router.push('/'))
+           .then(localStorage.setItem('is loginned', true))
           .catch(err => {})
         console.log('asd22222')
       }
@@ -72,7 +73,7 @@ export default {
   },
   created () {
     if(this.$route.query['loginError']){
-      this.$store.dispatch('setError', 'You may log in to access this page  ')
+      this.$store.dispatch('setError', 'Упс, ошибка.')
     }
 
   }

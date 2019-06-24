@@ -51,6 +51,7 @@ export default {
       }
     },
     logoutUser({commit}){
+      localStorage.removeItem("is logined");
       fb.auth().signOut()
       commit('setUser', null)
     }

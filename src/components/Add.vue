@@ -2,7 +2,7 @@
   <v-container>
     <v-layout row>
       <v-flex xs12> 
-        <h1>Add new</h1>
+        <h1>Добавить</h1>
         <v-form ref="form" v-model="valid" lazy-validation> 
               <v-stepper v-model="e6"
               vertical
@@ -11,8 +11,8 @@
               
               >
               <v-stepper-step editable :complete="e6 > 1" step="1" color="black">
-                Input your acquiring
-                <small>Or other expenses</small>
+               Введите ваши покупки
+                <small>Или любые другие траты</small>
               </v-stepper-step>
 
               <v-stepper-content step="1">
@@ -28,13 +28,13 @@
                     prepend-icon="fiber_smart_record"
                     v-model="acquiring"
                   ></v-text-field>
-                  <v-btn color="grey" @click="e6 = 2">Continue</v-btn>
+                  <v-btn color="grey" @click="e6 = 2">Продолжить</v-btn>
                 </v-flex>
 
                 
               </v-stepper-content>
 
-              <v-stepper-step dark editable :complete="e6 > 2" step="2" color="black">Price</v-stepper-step>
+              <v-stepper-step dark editable :complete="e6 > 2" step="2" color="black">Цена</v-stepper-step>
 
               <v-stepper-content  step="2" >
                 <v-flex xs12 sm6 md3>
@@ -50,12 +50,12 @@
                         prepend-icon="fiber_smart_record"
                         
                       ></v-text-field>
-                      <v-btn color="grey" @click="e6 = 3">Continue</v-btn>
+                      <v-btn color="grey" @click="e6 = 3">Продолжить</v-btn>
                     </v-flex>
 
               </v-stepper-content>
 
-              <v-stepper-step editable :complete="e6 > 3" step="3" color="black">Date</v-stepper-step>
+              <v-stepper-step editable :complete="e6 > 3" step="3" color="black">Дата</v-stepper-step>
 
               <v-stepper-content step="3" >
               
@@ -68,11 +68,11 @@
                  >
                   </v-date-picker>
                </div>
-                <v-btn color="grey" @click="e6 = 4">Continue</v-btn>
+                <v-btn color="grey" @click="e6 = 4">Продолжить</v-btn>
                 
               </v-stepper-content>
 
-              <v-stepper-step editable step="4" color="black">Kind</v-stepper-step>
+              <v-stepper-step editable step="4" color="black">Вид</v-stepper-step>
               <v-stepper-content step="4">
                 <v-flex xs12 sm6 d-flex>
                   <v-select
@@ -106,7 +106,7 @@ export default {
     return {
       e6: 1,
       valid: false,
-      items: ['Dues', 'Entertainment', 'Goods', 'Other'],
+      items: ['Покупки', 'Нологи', 'Еда и Кафе', 'Другое'],
       picker: null,
       landscape: false,
       nonLinear: true,
@@ -124,11 +124,11 @@ export default {
   },
   methods: { 
     iconTransfer (icon){
-      if( icon == 'Dues'){
+      if( icon == 'Покупки'){
         icon = 'shopping_cart'
-      } else if( icon == 'Entertaiment'){
+      } else if( icon == 'Нологи'){
           icon = 'account_balance'
-      }else if( icon == 'Goods'){
+      }else if( icon == 'Еда и Кафе'){
           icon = 'shopping_basket'
       }else {
           icon = 'donut_large'
